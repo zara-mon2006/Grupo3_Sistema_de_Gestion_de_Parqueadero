@@ -114,15 +114,14 @@ proyecto/
 - Tariff
 - Subscriber
 - ParkingCapacity
-
-### Diagrama lógico inicial
+- 
 
 ### Diagrama lógico inicial
 
 ```text
-Abonado            1 ──── N  MovimientoVehicular
-Tarifa             1 ──── N  MovimientoVehicular
-CapacidadParqueo   1 ──── N  MovimientoVehicular
+Subscriber      1 ──── N  VehicleMovement
+Tariff          1 ──── N  VehicleMovement
+ParkingCapacity 1 ──── N  VehicleMovement
 ```
 
 ---
