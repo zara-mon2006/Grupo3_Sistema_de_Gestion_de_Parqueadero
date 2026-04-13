@@ -1,0 +1,104 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum EstadoEspacio {
+  DISPONIBLE
+  OCUPADO
+  INACTIVO
+}
+
+enum EstadoRegistro {
+  ABIERTO
+  CERRADO
+}
+
+enum ModalidadTarifa {
+  HORA
+  FRACCION
+  PLANA
+  MENSUAL
+}
+
+model TipoVehiculo {
+  id             Int          @id @default(autoincrement())
+  nombre         String       @unique
+  requierePlaca  Boolean      @default(true)
+  vehiculos      Vehiculo[]
+  tarifas        Tarifa[]
+  espacios       Espacio[]
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
+
+model Vehiculo {
+  id                   Int                @id @default(autoincrement())
+  placa                String?            @unique
+  identificadorInterno String?            @unique
+  tipoVehiculoId       Int
+  tipoVehiculo         TipoVehiculo       @relation(fields: [tipoVehiculoId], references: [id])
+  registros            RegistroParqueo[]
+  abonado              Abonado?
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+}
+
+model Tarifa {
+  id              Int              @id @default(autoincrement())
+  tipoVehiculoId  Int
+  tipoVehiculo    TipoVehiculo     @relation(fields: [tipoVehiculoId], references: [id])
+  modalidad       ModalidadTarifa
+  valor           Decimal          @db.Decimal(10, 2)
+  fraccionMinutos Int?
+  activa          Boolean          @default(true)
+  registros       RegistroParqueo[]
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+}
+
+model Espacio {
+  id             Int              @id @default(autoincrement())
+  codigo         String           @unique
+  tipoVehiculoId Int
+  tipoVehiculo   TipoVehiculo     @relation(fields: [tipoVehiculoId], references: [id])
+  estado         EstadoEspacio    @default(DISPONIBLE)
+  registros      RegistroParqueo[]
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+}
+
+model Abonado {
+  id          Int       @id @default(autoincrement())
+  nombre      String
+  documento   String    @unique
+  telefono    String?
+  fechaInicio DateTime
+  fechaFin    DateTime
+  activo      Boolean   @default(true)
+  vehiculoId  Int       @unique
+  vehiculo    Vehiculo  @relation(fields: [vehiculoId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model RegistroParqueo {
+  id           Int             @id @default(autoincrement())
+  vehiculoId   Int
+  vehiculo     Vehiculo        @relation(fields: [vehiculoId], references: [id])
+  espacioId    Int
+  espacio      Espacio         @relation(fields: [espacioId], references: [id])
+  tarifaId     Int?
+  tarifa       Tarifa?         @relation(fields: [tarifaId], references: [id])
+  horaEntrada  DateTime
+  horaSalida   DateTime?
+  minutos      Int?
+  totalCobrado Decimal?        @db.Decimal(10, 2)
+  esAbonado    Boolean         @default(false)
+  estado       EstadoRegistro  @default(ABIERTO)
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+}
