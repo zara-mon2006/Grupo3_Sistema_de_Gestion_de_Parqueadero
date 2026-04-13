@@ -23,14 +23,15 @@
 10. [Modelo de Datos](#modelo-de-datos)
 11. [Reglas de Negocio Principales](#reglas-de-negocio-principales)
 12. [Historias de Usuario](#historias-de-usuario)
-13. [Definition of Done General](#definition-of-done-general)
-14. [Plan de Trabajo](#plan-de-trabajo)
-15. [Instalación y Ejecución](#instalación-y-ejecución)
-16. [Variables de Entorno](#variables-de-entorno)
-17. [Servicios Esperados](#servicios-esperados)
-18. [Endpoints Base del Backend](#endpoints-base-del-backend)
-19. [Convenciones de Trabajo](#convenciones-de-trabajo)
-20. [Entregables del Proyecto](#entregables-del-proyecto)
+13. [Plan de Sprints](#plan-de-sprints)
+14. [Definition of Done General](#definition-of-done-general)
+15. [Plan de Trabajo](#plan-de-trabajo)
+16. [Instalación y Ejecución](#instalación-y-ejecución)
+17. [Variables de Entorno](#variables-de-entorno)
+18. [Servicios Esperados](#servicios-esperados)
+19. [Endpoints Base del Backend](#endpoints-base-del-backend)
+20. [Convenciones de Trabajo](#convenciones-de-trabajo)
+21. [Entregables del Proyecto](#entregables-del-proyecto)
 
 ---
 
@@ -510,6 +511,26 @@ Como administrador del parqueadero, quiero ver la disponibilidad de espacios por
 - Se validó que los datos coincidan con base de datos y lógica de negocio.
 - Se probaron cambios en ocupación y tarifas.
 - La funcionalidad quedó integrada al panel administrativo sin errores.
+
+---
+
+## Plan de Sprints
+
+| Sprint | Fechas | Historias de Usuario |
+|---|---|---|
+| Sprint 1 | Mar 25 - Abr 1 o 2 | HU-01 |
+| Sprint 2 | Abr 3 - Abr 9 | HU-02, HU-03 |
+| Sprint 3 | Abr 10 - Abr 14 | HU-04, HU-05 |
+| Sprint 4 | Abr 15 - Abr 23 | HU-06, HU-07 |
+| Sprint 5 | Abr 24 - Abr 30 | HU-08, HU-09, HU-10 |
+
+### Distribución de trabajo por sprint
+
+- **Sprint 1:** creación y configuración del repositorio, estructura base del proyecto y documentación inicial.
+- **Sprint 2:** implementación del registro de ingreso de vehículos y consulta del historial de movimientos.
+- **Sprint 3:** implementación del registro de salida y cálculo automático de tarifas.
+- **Sprint 4:** gestión de tarifas y registro de abonados.
+- **Sprint 5:** validación de abonados, visualización de ocupación y panel administrativo de disponibilidad y tarifas.
 
 ---
 
