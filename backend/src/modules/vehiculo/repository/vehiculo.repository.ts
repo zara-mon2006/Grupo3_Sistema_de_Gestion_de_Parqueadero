@@ -33,6 +33,12 @@ export class VehiculoRepository {
     });
   }
 
+  async findByIdentificadorInterno(identificadorInterno: string) {
+    return this.prisma.vehiculo.findUnique({
+      where: { identificadorInterno },
+    });
+  }
+
   async tipoVehiculoExists(tipoVehiculoId: number) {
     return this.prisma.tipoVehiculo.findUnique({
       where: { id: tipoVehiculoId },
@@ -42,7 +48,8 @@ export class VehiculoRepository {
   async create(data: CreateVehiculoDto) {
     return this.prisma.vehiculo.create({
       data: {
-        placa: data.placa?.toUpperCase() ?? null,
+        placa: data.placa ? data.placa.toUpperCase() : null,
+        identificadorInterno: data.identificadorInterno.toUpperCase(),
         tipoVehiculoId: data.tipoVehiculoId,
       },
       include: {
@@ -58,6 +65,9 @@ export class VehiculoRepository {
       data: {
         ...(data.placa !== undefined
           ? { placa: data.placa ? data.placa.toUpperCase() : null }
+          : {}),
+        ...(data.identificadorInterno !== undefined
+          ? { identificadorInterno: data.identificadorInterno.toUpperCase() }
           : {}),
         ...(data.tipoVehiculoId !== undefined
           ? { tipoVehiculoId: data.tipoVehiculoId }

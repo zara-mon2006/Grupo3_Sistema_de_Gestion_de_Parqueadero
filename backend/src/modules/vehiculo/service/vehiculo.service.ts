@@ -50,15 +50,26 @@ export class VehiculoService {
     }
 
     if (dto.placa) {
-      const existing = await this.vehiculoRepository.findByPlaca(
+      const existingPlaca = await this.vehiculoRepository.findByPlaca(
         dto.placa.toUpperCase(),
       );
 
-      if (existing) {
+      if (existingPlaca) {
         throw new ConflictException(
           `Ya existe un vehículo con placa ${dto.placa.toUpperCase()}`,
         );
       }
+    }
+
+    const existingIdentificador =
+      await this.vehiculoRepository.findByIdentificadorInterno(
+        dto.identificadorInterno.toUpperCase(),
+      );
+
+    if (existingIdentificador) {
+      throw new ConflictException(
+        `Ya existe un vehículo con identificador interno ${dto.identificadorInterno.toUpperCase()}`,
+      );
     }
 
     return this.vehiculoRepository.create(dto);
@@ -69,6 +80,8 @@ export class VehiculoService {
 
     const tipoVehiculoId = dto.tipoVehiculoId ?? vehiculoActual.tipoVehiculoId;
     const placa = dto.placa ?? vehiculoActual.placa ?? undefined;
+    const identificadorInterno =
+      dto.identificadorInterno ?? vehiculoActual.identificadorInterno;
 
     const tipoVehiculo = await this.vehiculoRepository.tipoVehiculoExists(
       tipoVehiculoId,
@@ -93,15 +106,26 @@ export class VehiculoService {
     }
 
     if (placa) {
-      const existing = await this.vehiculoRepository.findByPlaca(
+      const existingPlaca = await this.vehiculoRepository.findByPlaca(
         placa.toUpperCase(),
       );
 
-      if (existing && existing.id !== id) {
+      if (existingPlaca && existingPlaca.id !== id) {
         throw new ConflictException(
           `Ya existe un vehículo con placa ${placa.toUpperCase()}`,
         );
       }
+    }
+
+    const existingIdentificador =
+      await this.vehiculoRepository.findByIdentificadorInterno(
+        identificadorInterno.toUpperCase(),
+      );
+
+    if (existingIdentificador && existingIdentificador.id !== id) {
+      throw new ConflictException(
+        `Ya existe un vehículo con identificador interno ${identificadorInterno.toUpperCase()}`,
+      );
     }
 
     return this.vehiculoRepository.update(id, dto);

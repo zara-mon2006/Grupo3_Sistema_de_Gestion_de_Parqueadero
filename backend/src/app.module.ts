@@ -8,6 +8,7 @@ import { TarifaModule } from './modules/tarifa/tarifa.module';
 import { EspacioModule } from './modules/espacio/espacio.module';
 import { AbonadoModule } from './modules/abonado/abonado.module';
 import { VehiculoModule } from './modules/vehiculo/vehiculo.module';
+import { RegistroParqueaderoModule } from './modules/registro-parqueadero/registro-parqueadero.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { VehiculoModule } from './modules/vehiculo/vehiculo.module';
     EspacioModule,
     VehiculoModule,
     AbonadoModule,
+    RegistroParqueaderoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
